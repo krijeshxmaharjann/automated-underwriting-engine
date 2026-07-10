@@ -24,3 +24,26 @@ print("--Underwriting Engine Raw Output--")
 print("Calculated DTI:", DTI)
 print("Calculated DTI:", LTV)
 
+#Phase 2: Automated Risk Logic tree
+
+print("\n--Running Automated Underwriting Analysis.--")
+
+#Rule 1 and 2: Checking for automatic denials
+
+if DTI > 0.45:
+    print("VERDICT: DENIED")
+    print("REASON: Debt-To-Income(DTI) ratio exceeds the 45% maximum threshold.")
+elif credit_score < 620:
+    print("VERDICT: DENIED")
+    print("REASON: Credit Score is below the conventional loan minimum of 620.")
+
+#Rule 3: Checking for approvals and mortgage' insurance requirements
+
+else:
+    print("VERDICT: APPROVED")
+    
+    if LTV >0.80:
+        print("NOTE: Private Mortgage Insurance(PMI) is required because LTV IS OVER 80%.")
+    else:
+        print("NOTE: Standard Conventional loan terms apply (No PMI required).")
+
