@@ -1,49 +1,29 @@
-# ==========================================
-# PHASE 1: BORROWER PROFILE & BASIC RATIOS
-# ==========================================
-#1. Setup the variables
-monthly_income = float(input("Enter your monthly income: "))
-monthly_debt = float(input("Enter your monthly debt: "))
-credit_score = float(input("Enter your Current credit score: "))
-loan_amount = float(input("Enter your total loan amount "))
-property_value = float(input("Enter your total property value "))
+class LoanApplication:
+    def __init__(self, income, debts, credit_score, loan_amount, property_value):
+        self.income = income
+        self.debts = debts
+        self.credit_score = credit_score
+        self.loan_amount = loan_amount
+        self.property_value = property_value
 
-# Printing variables
-print(f"Monthly Income: ${monthly_income}")
-print(f"Monthly Debts: ${monthly_debt}")
-print(f"Credit Score: {credit_score}")
-print(f"Loan Amount: ${loan_amount}")
-print(f"Property Value: ${property_value}")
+        # Automatically Calculate metrices upon object creation
 
-#2. Calculate the Core housing finance ratios
-DTI = monthly_debt/monthly_income
-LTV = loan_amount/property_value
+        self.dti = self.debts / self.income
+        self.ltv = self.loan_amount / self.property_value
 
-#3. Print the raw results to the Console
-print("--Underwriting Engine Raw Output--")
-print("Calculated DTI:", DTI)
-print("Calculated DTI:", LTV)
+        def evaluate_risk(self):
+            print(f"---Reviewing Application Metrices---")
+            print(f"DTI: {self.dti:.2f} | LTV: {self.ltv:.2f} | Credit Score: {self.credit_score}")
 
-#Phase 2: Automated Risk Logic tree
+            if self.dti > 0.45:
+                return "STATUS: DENIED | Reason: Debt-To-Income (DTI) ratio exceeds 45% maximum."
+            elif self.credit_score <620:
+                return "STATUS: DENIED | Reason: Credit Score falls below 620 requirements."
+            else:
+                if self.ltv > 0.80:
+                    return "STATUS: APPROVED | Note: Private Mortgage Insurance (PMI) is requred."
+                
+                return "STATUS: APPROVED | Note: Standard Conventional term met."
+            
 
-print("\n--Running Automated Underwriting Analysis.--")
-
-#Rule 1 and 2: Checking for automatic denials
-
-if DTI > 0.45:
-    print("VERDICT: DENIED")
-    print("REASON: Debt-To-Income(DTI) ratio exceeds the 45% maximum threshold.")
-elif credit_score < 620:
-    print("VERDICT: DENIED")
-    print("REASON: Credit Score is below the conventional loan minimum of 620.")
-
-#Rule 3: Checking for approvals and mortgage' insurance requirements
-
-else:
-    print("VERDICT: APPROVED")
-    
-    if LTV >0.80:
-        print("NOTE: Private Mortgage Insurance(PMI) is required because LTV IS OVER 80%.")
-    else:
-        print("NOTE: Standard Conventional loan terms apply (No PMI required).")
 
